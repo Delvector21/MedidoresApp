@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace MedidoresModel.DTO
 {
-    public class Direccion
+    class Direccion
     {
-        private int codigoPostal;
+        private int codPostal;
         private string detalle;
         private int nro;
         private string adicional;
 
-        public int CodigoPostal { get => codigoPostal; set => codigoPostal = value; }
+        public int CodPostal { get => codPostal; set => codPostal = value; }
         public string Detalle { get => detalle; set => detalle = value; }
         public int Nro { get => nro; set => nro = value; }
         public string Adicional { get => adicional; set => adicional = value; }

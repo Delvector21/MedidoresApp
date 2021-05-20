@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MedidoresModel")]
+[assembly: AssemblyTitle("SocketUtils")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MedidoresModel")]
+[assembly: AssemblyProduct("SocketUtils")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b395a319-dca4-473e-9e8b-1c549961d11f")]
+[assembly: Guid("38cc5ad7-a84f-43d4-b90a-06236c161d37")]
 
 // Version information for an assembly consists of the following four values:
 //

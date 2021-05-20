@@ -8,14 +8,18 @@ namespace MedidoresModel.DTO
 {
     public class Lectura
     {
+        private int nroSerie;
         private DateTime fecha;
-        private string valor;
-        private int tipo;
-        private string unidadMedida;
+        private string tipo;
+        private int valor;
+        private int estado;
 
+        public int NroSerie { get => nroSerie; set => nroSerie = value; }
         public DateTime Fecha { get => fecha; set => fecha = value; }
-        public string Valor { get => valor; set => valor = value; }
-        public int Tipo { get => tipo; set => tipo = value; }
-        public string UnidadMedida { get => unidadMedida; set => unidadMedida = value; }
+        public string Tipo { get => tipo; set => tipo = value; }
+        public int Valor { get => valor; set => valor = value; }
+        public int Estado { get => estado; set => estado = value; }
+
+        
     }
 }
