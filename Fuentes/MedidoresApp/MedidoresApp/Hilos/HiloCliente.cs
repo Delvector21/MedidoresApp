@@ -25,11 +25,30 @@ namespace MedidoresApp.Hilos
         public void Ejecutar()
         {
             bool verificado = false;
-            string prueba = clienteSocket.Leer();
-            Console.WriteLine(prueba);
+            string prueba;
+            try
+            {
+                prueba = clienteSocket.Leer();
+            }
+            catch (NullReferenceException ex)
+            {
 
+                prueba = "n|n|n";
+            }
+
+            Console.WriteLine(prueba);
+            string fechaString;
             int medidorV;
-            string fechaString = (prueba.Split('|'))[0];
+            try
+            {
+                fechaString = (prueba.Split('|'))[0];
+            }
+            catch (Exception)
+            {
+
+                fechaString = "fechanovalida";
+            }
+            
             try
             {
                 medidorV = Int32.Parse((prueba.Split('|'))[1]);
@@ -90,11 +109,30 @@ namespace MedidoresApp.Hilos
             if (verificado == true && ((intervalo.TotalMinutes < 30) && (tipoV == "trafico" || tipoV == "consumo")))
             {
                 clienteSocket.Escribir(DateTime.Now + "| WAIT");
-                //Console.WriteLine(DateTime.Now + "| WAIT");
+                
+                string input;
+                try
+                {
+                    input = clienteSocket.Leer();
+                }
+                catch (Exception)
+                {
 
-                string input = clienteSocket.Leer();
-                //Console.WriteLine(input);
-                string[] mensaje2 = input.Split('|');
+                    input = "n|n|n|n|n|n";
+                }
+
+                string[] mensaje2;
+                try
+                {
+                    mensaje2 = input.Split('|');
+                }
+                catch (Exception)
+                {
+
+                    input = "n|n|n|n|n|n";
+                    mensaje2 = input.Split('|');
+                }
+                 
 
                 if (mensaje2.Length == 6)
                 {
@@ -146,7 +184,7 @@ namespace MedidoresApp.Hilos
                     catch (Exception)
                     {
 
-                        estado = 0;
+                        estado = 7;
                     }
 
                     string confirmar = (input.Split('|'))[5];
@@ -168,6 +206,7 @@ namespace MedidoresApp.Hilos
                             {
                                 dal.RegistrarLecturaConsumo(l);
                                 clienteSocket.Escribir(medidor + "|OK");
+                                Console.WriteLine(medidor + "|OK");
 
                             }
                         }
@@ -187,6 +226,7 @@ namespace MedidoresApp.Hilos
 
                                 clienteSocket.Escribir(medidor + "|OK");
                                 dal.RegistrarLecturaTrafico(l);
+                                Console.WriteLine(medidor + "|OK");
 
                             }
                         }
@@ -195,18 +235,18 @@ namespace MedidoresApp.Hilos
                     else
                     {
                         clienteSocket.Escribir(fecha2string + "|" + medidor + "| ERROR");
+                        Console.WriteLine(fecha2string + "|" + medidor + "| ERROR");
+
                     }
 
                 }
-                else if (mensaje2.Length == 5)
+                else if(mensaje2.Length == 5)
                 {
                     List<string> errores = new List<string>();
                     int medidor;
                     DateTime fecha2;
                     int valor;
-                    int estado;
-
-
+                    
                     try
                     {
                         medidor = Int32.Parse((input.Split('|'))[0]);
@@ -235,7 +275,7 @@ namespace MedidoresApp.Hilos
                     {
                         valor = Int32.Parse((input.Split('|'))[3]);
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
 
                         valor = -1;
@@ -262,10 +302,11 @@ namespace MedidoresApp.Hilos
                             {
                                 dal.RegistrarLecturaConsumo(l);
                                 clienteSocket.Escribir(medidor + "|OK");
-
+                                Console.WriteLine(medidor + "|OK");
+                                //clienteSocket.CerrarConexion();
                             }
                         }
-                        else if (tipo == "trafico")
+                        else
                         {
                             Lectura l = new Lectura()
                             {
@@ -278,9 +319,10 @@ namespace MedidoresApp.Hilos
 
                             lock (dal)
                             {
-
-                                clienteSocket.Escribir(medidor + "|OK");
                                 dal.RegistrarLecturaTrafico(l);
+                                clienteSocket.Escribir(medidor + "|OK");
+                                Console.WriteLine(medidor + "|OK");
+
 
                             }
                         }
@@ -289,15 +331,25 @@ namespace MedidoresApp.Hilos
                     else
                     {
                         clienteSocket.Escribir(fecha2string + "|" + medidor + "| ERROR");
+                        Console.WriteLine(fecha2string + "|" + medidor + "| ERROR");
+
                     }
                 }
                 else
                 {
-                    
-                    clienteSocket.Escribir("Error en solicitud");
-                    Console.WriteLine("Conexion Rechazada");
-                    //clienteSocket.CerrarConexion();
+
+                    clienteSocket.Escribir(fechaString + "|" + medidorV + "| ERROR");
+                    Console.WriteLine(fechaString + "|" + medidorV + "| ERROR");
+                    //Console.WriteLine("Conexion Rechazada");
+                    clienteSocket.CerrarConexion();
                 }
+            }
+            else
+            {
+
+                clienteSocket.Escribir("Error en solicitud");
+                //Console.WriteLine("Conexion Rechazada");
+                clienteSocket.CerrarConexion();
             }
         }
     }

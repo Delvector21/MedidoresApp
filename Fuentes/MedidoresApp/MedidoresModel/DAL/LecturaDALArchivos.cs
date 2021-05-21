@@ -52,6 +52,12 @@ namespace MedidoresModel.DAL
                 string json2 = "[" + json + "]";
                 File.WriteAllText(archivoConsumo, json2);
             }
+            catch(FileNotFoundException ex)
+            {
+                string json = JsonConvert.SerializeObject(l, Formatting.Indented);
+                string json2 = "[" + json + "]";
+                File.WriteAllText(archivoConsumo, json2);
+            }
              
                                     
         }
@@ -69,6 +75,12 @@ namespace MedidoresModel.DAL
 
             }
             catch (NullReferenceException ex)
+            {
+                string json = JsonConvert.SerializeObject(l, Formatting.Indented);
+                string json2 = "[" + json + "]";
+                File.WriteAllText(archivoTrafico, json2);
+            }
+            catch (FileNotFoundException ex)
             {
                 string json = JsonConvert.SerializeObject(l, Formatting.Indented);
                 string json2 = "[" + json + "]";
