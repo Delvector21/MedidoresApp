@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Hilos\HiloCliente.cs" />
     <Compile Include="Hilos\HiloServer.cs" />
+    <Compile Include="Parciales\Program.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -66,8 +67,6 @@
       <Name>SocketUtils</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Parciales\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

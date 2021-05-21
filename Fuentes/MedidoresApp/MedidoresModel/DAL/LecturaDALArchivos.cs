@@ -91,15 +91,33 @@ namespace MedidoresModel.DAL
         
         public List<Lectura> ObtenerLecturasConsumo()
         {
-            List<Lectura> consumos = JsonConvert.DeserializeObject<List<Lectura>>(File.ReadAllText(archivoConsumo));
+            List<Lectura> consumos;
+            try
+            {
+                consumos = JsonConvert.DeserializeObject<List<Lectura>>(File.ReadAllText(archivoConsumo));
+            }
+            catch (NullReferenceException)
+            {
+
+                consumos = null;
+            }
+            
 
             return consumos;
         }
 
         public List<Lectura> ObtenerLecturasTrafico()
         {
-            List<Lectura> traficos = JsonConvert.DeserializeObject<List<Lectura>>(File.ReadAllText(archivoTrafico));
+            List<Lectura> traficos;
+            try
+            {
+                traficos = JsonConvert.DeserializeObject<List<Lectura>>(File.ReadAllText(archivoTrafico));
+            }
+            catch (NullReferenceException)
+            {
 
+                traficos = null;
+            }
             return traficos;
         }
 

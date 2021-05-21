@@ -20,7 +20,7 @@ namespace MedidoresApp
             Thread t = new Thread(new ThreadStart(hiloServer.Ejecutar));                     
             t.IsBackground = true;
             t.Start();
-            while (true);
+            while (Menu());
             
         }
     }
